@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Video</title>
+</head>
+<body>
+
+<iframe id="video" src="https://cms.zoni.edu/wp-admin/admin-ajax.php?action=h5p_embed&id=183" width="958" height="600" frameborder="0" allowfullscreen="allowfullscreen" title="Interactive Video Course 102 W2L5 My School Subjects"></iframe>
+<script>
+    // Function to stop the video
+    function stopVideo() {
+        var iframe = document.getElementById('video');
+        var iframeSrc = iframe.src;
+        // Check if the iframe source contains 'youtube' or 'vimeo'
+        if (iframeSrc.indexOf('youtube') !== -1 || iframeSrc.indexOf('vimeo') !== -1) {
+            // For YouTube and Vimeo videos, pause the video
+            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        } else {
+            // For other types of videos, just reload the iframe
+            iframe.src = iframeSrc;
+        }
+    }
+    
+    // Run stopVideo() when the scene unloads
+    window.onbeforeunload = function() {
+        stopVideo();
+    };
+</script>
+
+<button onclick="stopVideo()">Stop Video</button>
+
+</body>
+</html>
